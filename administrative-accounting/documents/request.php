@@ -65,9 +65,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php 
-                                        $conn = new class_model();
-                                        $docrequest = $conn->fetchAll_documentrequest();
+                                    <?php
+                                    $conn = new class_model();
+                                    $docrequest = $conn->fetchAll_documentrequest();
                                     ?>
                                     <?php foreach ($docrequest as $row) { ?>
                                         <tr>
@@ -78,27 +78,27 @@
                                             <td><?= $row['document_name']; ?></td>
                                             <td><?= $row['processing_officer']; ?></td>
                                             <td>
-                                                <?php 
-                                                    if ($row['accounting_status'] === "Pending") {
-                                                        echo '<span class="badge bg-info text-white">Pending</span>';
-                                                    } else if ($row['accounting_status'] === "Received") {
-                                                        echo '<span class="badge bg-warning text-white">Received</span>';
-                                                    } else if ($row['accounting_status'] === "Waiting for Payment") {
-                                                        echo '<span class="badge bg-danger text-white">Waiting for Payment</span>';
-                                                    } else if ($row['accounting_status'] === "Declined") {
-                                                        echo '<span class="badge bg-danger text-white">Declined</span>';
-                                                    } else if ($row['accounting_status'] === "Verified") {
-                                                        echo '<span class="badge bg-success text-white">Verified</span>';
-                                                    }
-                                                ?> 
+                                                <?php
+                                                if ($row['accounting_status'] === "Pending") {
+                                                    echo '<span class="badge bg-info text-white">Pending</span>';
+                                                } else if ($row['accounting_status'] === "Received") {
+                                                    echo '<span class="badge bg-warning text-white">Received</span>';
+                                                } else if ($row['accounting_status'] === "Waiting for Payment") {
+                                                    echo '<span class="badge bg-danger text-white">Waiting for Payment</span>';
+                                                } else if ($row['accounting_status'] === "Declined") {
+                                                    echo '<span class="badge bg-danger text-white">Declined</span>';
+                                                } else if ($row['accounting_status'] === "Verified") {
+                                                    echo '<span class="badge bg-success text-white">Verified</span>';
+                                                }
+                                                ?>
                                             </td>
-                
-                    
+
+
                                             <td class="align-right">
-                                                <a href="edit-request.php?request=<?= $row['request_id']; ?>&student-number=<?= $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit request">
+                                                <a href="edit-request.php?request=<?= $row['control_no']; ?>&student-number=<?= $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit request">
                                                     <i class="fa fa-edit"></i>
                                                 </a> |
-                                                <a href="email-form-r.php?request=<?= $row['request_id']; ?>&student-number=<?= $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Send email">
+                                                <a href="email-form-r.php?request=<?= $row['control_no']; ?>&student-number=<?= $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Send email">
                                                     <i class="fa fa-envelope"></i>
                                                 </a>
                                             </td>
@@ -150,7 +150,7 @@
 <script src="../assets/vendor/datatables/js/data-table.js"></script>
 
 <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function() {
         var firstName = $('#firstName').text();
         var lastName = $('#lastName').text();
         var initials = firstName.charAt(0) + lastName.charAt(0);
@@ -158,39 +158,16 @@
     });
 </script>
 
+
 <script>
     $(document).ready(function() {
-        load_data();
-
-        function load_data() {
-            $(document).on('click', '.delete', function() {
-                var request_id = $(this).attr("data-id");
-
-                if (confirm("Are you sure you want to remove this data?")) {
-                    $.ajax({
-                        url: "../init/controllers/delete_request.php",
-                        method: "POST",
-                        data: { request_id: request_id },
-                        success: function(response) {
-                            $("#message").html(response);
-                        },
-                        error: function() {
-                            console.log("Failed");
-                        }
-                    });
-                }
-            });
-        }
-    });
-</script>
-
-<script>
-    $(document).ready(function(){
         function load_unseen_notification(view = '') {
             $.ajax({
                 url: "../init/controllers/fetch.php",
                 method: "POST",
-                data: { view: view },
+                data: {
+                    view: view
+                },
                 dataType: "json",
                 success: function(data) {
                     $('.dropdown-menu_1').html(data.notification);
@@ -215,4 +192,5 @@
 </script>
 
 </body>
+
 </html>

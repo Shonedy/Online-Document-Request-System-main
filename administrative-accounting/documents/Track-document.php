@@ -51,12 +51,12 @@
                             <?php
                             // Check if request and student ID are passed in URL
                             if (isset($_GET['request']) && isset($_GET['student-number'])) {
-                                $request_id = $_GET['request'];
+                                $control_no = $_GET['request'];
                                 $student_id = $_GET['student-number'];
 
                                 // Instantiate the class and fetch the specific document request
                                 $conn = new class_model();
-                                $document = $conn->fetch_document_by_id($student_id, $request_id);
+                                $document = $conn->fetch_document_by_id($control_no, $student_id);
 
                                 // Check if data is retrieved
                                 if ($document) {
@@ -123,4 +123,5 @@
 <!-- ============================================================== -->
 <!-- Optional JavaScript -->
 </body>
+
 </html>
